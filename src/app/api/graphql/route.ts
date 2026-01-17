@@ -1,27 +1,23 @@
-import { createSchema, createYoga } from "graphql-yoga";
+import "reflect-metadata";
+
+import { HelloResolver } from "@/resolvers/hello";
+import { createYoga } from "graphql-yoga";
+import { buildSchemaSync } from "type-graphql";
 
 interface NextContext {
   params: Promise<Record<string, string>>;
 }
 
 const { handleRequest } = createYoga<NextContext>({
-  schema: createSchema({
-    typeDefs: `
-      type Query {
-        greetings: String
-      }
-    `,
-    resolvers: {
-      Query: {
-        greetings: () =>
-          "This is the `greetings` field of the root `Query` type",
-      },
-    },
+  schema: buildSchemaSync({
+    resolvers: [HelloResolver],
+    validate: false,
   }),
-
   graphqlEndpoint: "/api/graphql",
-
   fetchAPI: { Response },
+  cors: {
+    origin: ["*"],
+  },
 });
 
 export {
