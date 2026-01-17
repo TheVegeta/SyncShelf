@@ -4,12 +4,14 @@ import { TbRocket } from "react-icons/tb";
 const AppNavbar = () => {
   return (
     <>
-      <Container my="4">
-        <Box>
+      <Container my="6">
+        <Box as={Flex}>
           <Box as={Flex} gap="2" alignItems="center">
             <TbRocket size={32} />
             <Text fontSize="2xl">SyncShelf</Text>
           </Box>
+
+          <Box></Box>
         </Box>
       </Container>
     </>

@@ -1,5 +1,6 @@
 import "reflect-metadata";
 
+import { initialize } from "@/data-source";
 import { HelloResolver } from "@/resolvers/hello";
 import { createYoga } from "graphql-yoga";
 import { buildSchemaSync } from "type-graphql";
@@ -7,6 +8,10 @@ import { buildSchemaSync } from "type-graphql";
 interface NextContext {
   params: Promise<Record<string, string>>;
 }
+
+(async () => {
+  await initialize();
+})();
 
 const { handleRequest } = createYoga<NextContext>({
   schema: buildSchemaSync({
